@@ -84,6 +84,7 @@ RUN npm install -g my-agent
 
 The runner binary stays at `/usr/local/bin/ax-task-runner`, so nothing else changes.
 
+
 ### 2. Embed the runner package in your own binary
 
 If you want the standard lifecycle but need to run code around it, import `github.com/google/ax/runner` and call `runner.Run` yourself. This gives you a hook for the command's exit and a place to do your own setup before or after the metadata server starts:
@@ -133,6 +134,8 @@ func main() {
 ```
 
 Cross-compile it for `linux/amd64` with `CGO_ENABLED=0` and copy it into your image at `/usr/local/bin/ax-task-runner`.
+
+For a working example, see [`cmd/runners/claude-code-runner`](../cmd/runners/claude-code-runner), which builds a Claude Code invocation from `spec.config` and passes it to `runner.Run` as the command. [Claude Code runner](../examples/claude-code/README.md) documents it.
 
 ### 3. Write a runner from scratch
 
